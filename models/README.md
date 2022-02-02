@@ -1,0 +1,1 @@
+Models section of the AirBnB clone project. All models and classes contained here.
