@@ -29,21 +29,29 @@ class BaseModel():
             Base.__nb_objects += 1
             self.id = Base.__nb_objects
 
-    @classmethod
     def id(self):
         """Generate an id for the class using UUID"""
         id = uuid.uuid1()
         return id
-        
+
+    @classmethod
     def created_at(self):
         """Assign date time on creation"""
     
+    @classmethod
     def updated_at(self):
         """Assign date time on update"""
 
+    @classmethod
     def save(self):
         """Saves attributes"""
         save = save.self
     
+    @classmethod
+    def to_dict(self):
+        attrs = {'id': self.id}
+        return attrs
+    
     def __str__(self):
         """__str__ string"""
+        return ("[Class Name], {}, {}".format(id, __dict__))
