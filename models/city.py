@@ -3,6 +3,8 @@
 This class stores info about cities.
 City inherits from Base Model
 """
+from models.base_model import BaseModel
+
 
 class City(BaseModel):
     """

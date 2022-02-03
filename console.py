@@ -54,14 +54,18 @@ class HBNBCommand(cmd.Cmd):
     def destroy(self):
 
     @classmethod
+    def default(self):
+
+    @classmethod
     def all(self):
 
     @classmethod
-    def update(self):
+    def update(self, cls):
 
     @classmethod
     def empty_line(self):
-        cmd.emptyline()
+        """Does nothing. It's an empty line"""
+        pass
 
     @classmethod
     def save(self, arg):
@@ -72,7 +76,7 @@ class HBNBCommand(cmd.Cmd):
     def EOF(self):
 
     @classmethod
-    def quit(self):
+    def close(self):
         """Close the Console"""
         if self.file:
             self.file.close()
@@ -80,4 +84,3 @@ class HBNBCommand(cmd.Cmd):
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
-

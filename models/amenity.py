@@ -2,7 +2,7 @@
 """
 This class stores info about the amenities in an area
 """
-
+from models.base_model import BaseModel
 
 class Amenity():
     """
