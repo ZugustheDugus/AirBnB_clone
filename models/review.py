@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-#!/usr/bin/python3
-"""
-This class stores info pertaining to reviews
-Inherits from Base Model
-"""
-
-
-def class Review(BaseModel):
-    """init the class"""
-    def __init__(self, id):
-=======
 #!/usr/bin/python3
 """
 Review class
@@ -32,4 +20,3 @@ class Review(BaseModel):
     place_id = ""
     user_id = ""
     text = ""
->>>>>>> 43e9a9f80286bc46748e4610230aef121698bc5f
