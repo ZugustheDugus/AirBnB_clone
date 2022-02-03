@@ -58,6 +58,7 @@ class BaseModel():
     
     @classmethod
     def to_dict(self):
+        """"""
         dict_repr = {}
         for key, value in self.__dict__.items():
             if key == "created_at" or key == "updated_at":
