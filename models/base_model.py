@@ -6,13 +6,35 @@ import sys
 import os
 import uuid
 import json
+import datetime
+import abs
 
+__nb_objects = 0
 
 class BaseModel():
-    """init the class"""
+
+
+    @classmethod
+    def clear(cls):
+        """Clear variables for testing purposes"""
+        BaseModel.__nb_objects = 0
+
+
+
     def __init__(self, id):
-        super().__init__(id)
-    
+        """init the class"""
+        if id is not None:
+            self.id = id
+        else:
+            Base.__nb_objects += 1
+            self.id = Base.__nb_objects
+
+    @classmethod
+    def id(self):
+        """Generate an id for the class using UUID"""
+        id = uuid.uuid1()
+        return id
+        
     def created_at(self):
         """Assign date time on creation"""
     

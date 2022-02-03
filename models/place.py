@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-#!/usr/bin/python3
-"""
-Place class, showing what a place looks like
-Place inherits from Base Model
-"""
-
-class Place(BaseModel):
-    """Init the class"""
-    def __init__(self, id):
-=======
 #!/usr/bin/python3
 """
 Place class
@@ -45,4 +34,3 @@ class Place(BaseModel):
     latitude = 0.0
     longitude = 0.0
     amenity_ids = []
->>>>>>> 43e9a9f80286bc46748e4610230aef121698bc5f
