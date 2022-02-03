@@ -1,1 +1,1 @@
-AirBnB clone project for Holberton School. Created by Jeff Harris and Hayden M. Cooper
+AirBnB clone project for Holberton School. Website designed to function similarly to the AirBnB website.
