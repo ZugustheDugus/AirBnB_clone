@@ -4,5 +4,9 @@ State class, which stores state info
 """
 
 class State():
-    """init the class"""
+    """
+    init the class
+    name: string - empty string
+    """
+    name = ""
     def __init__(self, id):
