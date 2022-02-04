@@ -88,7 +88,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         else:
             obj1 = []
-            for obj in storage.all().values():
+            for obj in file_storage.all().values():
                 if len(arg_list) > 0 and arg_list[0] == obj.__class__.__name__:
                     obj1.append(obj.__str__())
                 elif len(arg_list) == 0:
@@ -98,6 +98,24 @@ class HBNBCommand(cmd.Cmd):
     def parse(arg, id=''):
         """Parser for the console"""
 
+    @classmethod
+    def help_create(self):
+        """Help message for the create command"""
+        print("""Creates a new instance of the first argument
+                stores it in JSON file and prints its ID""")
+
+    @classmethod
+    def do_show(self, arg):
+        """
+        Prints string representation of an instance
+        based on class name and id
+        """
+        arg_list = HBNBCommand.parse(arg)
+        db = file_storage.all()
+        if not len(arg_list):
+            print("** class name missing **")
+        elif (arg_list[0] not in HBNBCommand.__class_list.keys()):
+            print("** class doesn't exist **")
 
     @classmethod
     def do_quit(self):
