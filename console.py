@@ -48,7 +48,8 @@ class HBNBCommand(cmd.Cmd):
     def create(self):
 
     @classmethod
-    def show(self):
+    def show(self, cls):
+        pass
 
     @classmethod
     def destroy(self):
@@ -61,19 +62,59 @@ class HBNBCommand(cmd.Cmd):
 
     @classmethod
     def update(self, cls):
+        pass
 
     @classmethod
     def empty_line(self):
-        """Does nothing. It's an empty line"""
+        """
+        Does nothing. It's an empty line
+        Overrides emptyline function
+        """
         pass
 
     @classmethod
     def save(self, arg):
         """Save function"""
         self.file = open(arg, 'w')
+    
+    @classmethod
+    def count(self, arg):
+        """
+        print number of elements in filestorage
+        that are instances of cls
+        """
+        arg_list = HBNBCommand.parse(arg)
+        if len(arg_list) > 0 and arg_list[0] not in HBNBCommand.__class_list:
+            print("** class doesn't exist **")
+        else:
+            obj1 = []
+            for obj in storage.all().values():
+                if len(arg_list) > 0 and arg_list[0] == obj.__class__.__name__:
+                    obj1.append(obj.__str__())
+                elif len(arg_list) == 0:
+                    obj1.append(obj.__str__())
+
+    @staticmethod
+    def parse(arg, id=''):
+        """Parser for the console"""
+
 
     @classmethod
-    def EOF(self):
+    def do_quit(self):
+        """Quits the program"""
+        return True
+
+    @classmethod
+    def help_quit(self):
+        """Prints help message about quit command"""
+        print("Quit command to exit the program\n")
+
+    @classmethod
+    def do_EOF(self):
+        """End of file"""
+        print("")
+        return True
+
 
     @classmethod
     def close(self):
