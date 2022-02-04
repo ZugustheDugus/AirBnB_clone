@@ -116,6 +116,10 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         elif (arg_list[0] not in HBNBCommand.__class_list.keys()):
             print("** class doesn't exist **")
+        elif len(arg_list) == 1:
+            print("** instance id is missing **")
+        elif "{}.{}".format(arg_list[0], arg_list[1]) not in db:
+            print("** no instance **")
 
     @classmethod
     def do_quit(self):
