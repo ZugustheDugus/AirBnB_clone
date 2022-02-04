@@ -6,7 +6,7 @@ This is the console that the user inputs commands into
 
 import cmd
 
-from engine import file_storage
+from models.engine import file_storage
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -98,28 +98,6 @@ class HBNBCommand(cmd.Cmd):
     def parse(arg, id=''):
         """Parser for the console"""
 
-    @classmethod
-    def help_create(self):
-        """Help message for the create command"""
-        print("""Creates a new instance of the first argument
-                stores it in JSON file and prints its ID""")
-
-    @classmethod
-    def do_show(self, arg):
-        """
-        Prints string representation of an instance
-        based on class name and id
-        """
-        arg_list = HBNBCommand.parse(arg)
-        db = file_storage.all()
-        if not len(arg_list):
-            print("** class name missing **")
-        elif (arg_list[0] not in HBNBCommand.__class_list.keys()):
-            print("** class doesn't exist **")
-        elif len(arg_list) == 1:
-            print("** instance id is missing **")
-        elif "{}.{}".format(arg_list[0], arg_list[1]) not in db:
-            print("** no instance **")
 
     @classmethod
     def do_quit(self):
