@@ -10,4 +10,3 @@ class Amenity():
     name: string - empty string
     """
     name = ""
-    def __init__(self, id):

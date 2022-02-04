@@ -2,9 +2,9 @@
 """
 Place class
 """
-# first edit
+
 # import statement may need editing after we work on Base Model
-# from models.base_model import BaseModel
+from models.base_model import BaseModel
 
 
 class Place(BaseModel):
