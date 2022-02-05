@@ -44,15 +44,15 @@ class HBNBCommand(cmd.Cmd):
                 narg_list.append(a)
         return narg_list
 
-    def do_quit(self):
+    def do_quit(self, arg):
         """Quits the program"""
         return True
 
-    def help_quit(self):
+    def help_quit(self, arg):
         """Prints help message about quit command"""
         print("Quit command to exit the program\n")
 
-    def do_EOF(self):
+    def do_EOF(self, arg):
         """End of file"""
         print("")
         return True
