@@ -20,10 +20,6 @@ class HBNBCommand(cmd.Cmd):
     intro = "Welcome to AirBnB!"
     prompt = "(hbnb)"
     file = None
-    
-
-
-
 
     @staticmethod
     def parse(arg, id=" "):
