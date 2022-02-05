@@ -5,7 +5,8 @@ This is the console that the user inputs commands into
 
 
 import cmd
-import sys
+import json
+import models
 
 from models.engine import file_storage
 from models.base_model import BaseModel
@@ -16,11 +17,12 @@ from models.place import Place
 from models.amenity import Amenity
 from models.review import Review
 from models.engine import our_objects
+
+
 class HBNBCommand(cmd.Cmd):
     """Console class basic init"""
     intro = "Welcome to AirBnB!"
     prompt = "(hbnb)"
-    file = None
 
     @staticmethod
     def parse(arg, id=" "):
@@ -56,8 +58,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         elif len(arg_list) > 1:
             print("** too many arguments **")
-        elif (arg_list[0] in HBNBCommand.classes.keys()):
-            new_obj = HBNBCommand.classes[arg_list[0]]()
+        elif (arg_list[0] in HBNBCommand.classes().keys()):
+            new_obj = HBNBCommand.classes()[arg_list[0]]()
             new_obj.save()
             print(new_obj.id)
         else:
@@ -100,7 +102,7 @@ class HBNBCommand(cmd.Cmd):
         db = file_storage.all()
         if not len(arg_list):
             print("** class name missing **")
-        elif (arg_list[0] not in HBNBCommand.classes.keys()):
+        elif (arg_list[0] not in HBNBCommand.classes().keys()):
             print("** class doesn't exist **")
         elif len(arg_list) == 1:
             print("** instance id missing **")
@@ -120,7 +122,7 @@ class HBNBCommand(cmd.Cmd):
         whether based on class or not
         """
         arg_list = HBNBCommand.parse(arg)
-        if len(arg_list) > 0 and arg_list[0] not in HBNBCommand.classes:
+        if len(arg_list) > 0 and arg_list[0] not in HBNBCommand.classes():
             print("** class doesn't exist **")
         else:
             obj1 = []
@@ -143,12 +145,12 @@ class HBNBCommand(cmd.Cmd):
         into a JSON file
         """
         arg_list = HBNBCommand.parse(arg)
-        obj_dict = file_storage.all()
+        obj_dict = file_storage.classes()
 
         if len(arg_list) == 0:
             print("** class name missing **")
             return False
-        elif len(arg_list[0]) not in HBNBCommand.classes:
+        elif len(arg_list[0]) not in HBNBCommand.classes():
             print("** class doesn't exist **")
             return False
         elif len(arg_list) == 1:
@@ -204,7 +206,7 @@ class HBNBCommand(cmd.Cmd):
         that are instances of cls
         """
         arg_list = HBNBCommand.parse(arg)
-        if len(arg_list) > 0 and arg_list[0] not in HBNBCommand.classes:
+        if len(arg_list) > 0 and arg_list[0] not in HBNBCommand.classes():
             print("** class doesn't exist **")
         else:
             obj1 = []
@@ -237,13 +239,13 @@ class HBNBCommand(cmd.Cmd):
 
     def default(self, line):
         """
-        Handles what to do if there is no do method passed
+        Handles what to do if there is no valid do method passed
         """
         line_p = HBNBCommand.parse(line, '.')
-        if line_p[0] in HBNBCommand.classes.keys() and len(line_p) > 1:
-            if line_p[1][:-2] in HBNBCommand.class_funcs:
+        if line_p[0] in HBNBCommand.classes().keys() and len(line_p) > 1:
+            if line_p[1][:-2] in HBNBCommand.class_funcs():
                 func = line_p[1][:-2]
-                cls = HBNBCommand.classes[line_p[0]]
+                cls = HBNBCommand.classes()[line_p[0]]
                 eval("self.do_" + func)(cls.__name__)
             else:
                 super().default(line)
