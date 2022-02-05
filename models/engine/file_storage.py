@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """
 File storage section of the program
+Sentence
 """
 
 from os.path import exists
@@ -38,7 +39,7 @@ class FileStorage():
         dict_store = {}
         for key, value in self.__objects.items():
             dict_store[key] = value.to_dict()
-        with open(self.__file_path, "w") as f:
+        with open(self.__file_path, 'w') as f:
             f.write(dumps(dict_store))
 
     def reload(self):
@@ -50,7 +51,7 @@ class FileStorage():
         if exists(self.__file_path) is False:
             return
 
-        with open(self.__file_path, "r") as f:
+        with open(self.__file_path, 'r') as f:
             dicts = loads(f.read())
 
         from .our_objects import classes
