@@ -21,3 +21,7 @@ class TestCityClass(unittest.TestCase):
         self.assertEqual(City.state_id, "")
         self.assertEqual(obj.name, "")
         self.assertEqual(obj.state_id, "")
+
+        self.assertIsInstance(obj, City)
+        self.assertIsInstance(obj, BaseModel)
+

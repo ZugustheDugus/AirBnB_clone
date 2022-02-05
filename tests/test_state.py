@@ -15,7 +15,11 @@ class TestStateClass(unittest.TestCase):
     def test_class(self):
         """
         1 - tests if empty string passed
+        2 - tests of BaseModel is parent of State
         """
         obj = State()
         self.assertEqual(State.name, "")
         self.assertEqual(obj.name, "")
+
+        self.assertIsInstance(obj, State)
+        self.assertIsInstance(obj, BaseModel)

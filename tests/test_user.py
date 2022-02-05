@@ -13,6 +13,7 @@ class TestUserClass(unittest.TestCase):
     """
     tests for User
     1 - tests for empty strings in fields
+    2 - tests if BaeModel is parent of User
     """
     def test_class(self):
         obj = User()
@@ -24,3 +25,6 @@ class TestUserClass(unittest.TestCase):
         self.assertEqual(User.password, "")
         self.assertEqual(User.first_name, "")
         self.assertEqual(User.last_name, "")
+
+        self.assertIsInstance(obj, User)
+        self.assertIsInstance(obj, BaseModel)

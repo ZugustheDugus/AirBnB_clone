@@ -15,6 +15,7 @@ class TestPlaceClass(unittest.TestCase):
     def test_class(self):
         """
         1 - tests if correct format/type passed
+        2 - tests if BaseModel is parent of Place
         """
         obj = Place()
 
@@ -40,3 +41,6 @@ class TestPlaceClass(unittest.TestCase):
         self.assertEqual(obj.latitude, 0.0)
         self.assertEqual(obj.longitude, 0.0)
         self.assertEqual(obj.amenity_ids, [])
+
+        self.assertIsInstance(obj, Place)
+        self.assertIsInstance(obj, BaseModel)
