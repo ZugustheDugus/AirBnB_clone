@@ -36,23 +36,19 @@ class HBNBCommand(cmd.Cmd):
                 narg_list.append(a)
         return narg_list
 
-    @classmethod
     def do_quit(self):
         """Quits the program"""
         return True
 
-    @classmethod
     def help_quit(self):
         """Prints help message about quit command"""
         print("Quit command to exit the program\n")
 
-    @classmethod
     def do_EOF(self):
         """End of file"""
         print("")
         return True
 
-    @classmethod
     def do_create(self, arg):
         """
         Creates a new instance of BaseModel
@@ -70,13 +66,11 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** class doesn't exist **")
 
-    @classmethod
     def help_create(self):
         """Help message for the create command"""
         print("""Creates a new instance of the first argument
                 stores it in JSON file and prints its ID""")
 
-    @classmethod
     def do_show(self, arg):
         """
         Prints string representation of an instance
@@ -95,13 +89,11 @@ class HBNBCommand(cmd.Cmd):
         else:
             print(db["{}.{}".format(arg_list[0], arg_list[1])])
     
-    @classmethod
     def help_show(self):
         """Prints the help message for do_show command"""
         print("""Prints the string representation of an instance
                 based on class name and id""")
 
-    @classmethod
     def do_destroy(self, arg):
         """
         Deletes an instance based on class name and ID
@@ -125,7 +117,6 @@ class HBNBCommand(cmd.Cmd):
         """Prints the help message for the do_destroy command"""
         print("""Deletes an instance based on class name and id""")
 
-    @classmethod
     def do_all(self, arg):
         """
         Prints string representation of all instances 
@@ -143,7 +134,6 @@ class HBNBCommand(cmd.Cmd):
                     obj1.append(obj.__str__())
             print(obj1)
 
-    @classmethod
     def help_all(self):
         """Prints the help message for the do_all command"""
         print("""Prints string representation of all instances
@@ -196,6 +186,37 @@ class HBNBCommand(cmd.Cmd):
                     obj.__dict__[i] = j
         file_storage.save()
 
+    def help_update(self):
+        """
+        Prints the help message for the do_update command
+        """
+        print("""Updates an instance based on class name and id
+        by adding or updating an attribute and saving the change
+        into a JSON file""")
+
+    def empty_line(self):
+        """
+        Does nothing. It's an empty line
+        Overrides emptyline function
+        """
+        pass
+
+    def do_count(self, arg):
+        """
+        print number of elements in filestorage
+        that are instances of cls
+        """
+        arg_list = HBNBCommand.parse(arg)
+        if len(arg_list) > 0 and arg_list[0] not in HBNBCommand.classes:
+            print("** class doesn't exist **")
+        else:
+            obj1 = []
+            for obj in file_storage.all().values():
+                if len(arg_list) > 0 and arg_list[0] == obj.__class__.__name__:
+                    obj1.append(obj.__str__())
+                elif len(arg_list) == 0:
+                    obj1.append(obj.__str__())
+
     def show(self, cls):
         """
         Gives all elements inside File Storage
@@ -217,7 +238,6 @@ class HBNBCommand(cmd.Cmd):
         """
         pass
 
-    @classmethod
     def default(self, line):
         """
         Handles what to do if there is no do method passed
@@ -232,37 +252,10 @@ class HBNBCommand(cmd.Cmd):
                 super().default(line)
             return False
 
-    @classmethod
-    def empty_line(self):
-        """
-        Does nothing. It's an empty line
-        Overrides emptyline function
-        """
-        pass
-
-    @classmethod
     def save(self, arg):
         """Save function"""
         self.file = open(arg, 'w')
-    
-    @classmethod
-    def count(self, arg):
-        """
-        print number of elements in filestorage
-        that are instances of cls
-        """
-        arg_list = HBNBCommand.parse(arg)
-        if len(arg_list) > 0 and arg_list[0] not in HBNBCommand.classes:
-            print("** class doesn't exist **")
-        else:
-            obj1 = []
-            for obj in file_storage.all().values():
-                if len(arg_list) > 0 and arg_list[0] == obj.__class__.__name__:
-                    obj1.append(obj.__str__())
-                elif len(arg_list) == 0:
-                    obj1.append(obj.__str__())
 
-    @classmethod
     def close(self):
         """Close the Console"""
         if self.file:
