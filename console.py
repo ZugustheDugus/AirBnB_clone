@@ -6,7 +6,7 @@ This is the console that the user inputs commands into
 
 import cmd
 
-from engine import file_storage
+from models.engine import file_storage
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -52,7 +52,24 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     @classmethod
-    def destroy(self):
+    def do_destroy(self, arg):
+        """
+        Deletes an instance based on class name and ID
+        """
+        arg_list = HBNBCommand.parse(arg)
+        file_storage.reload()
+        db = file_storage.all()
+        if not len(arg_list):
+            print("** class name missing **")
+        elif (arg_list[0] not in HBNBCommand.__class_list.keys()):
+            print("** class doesn't exist **")
+        elif len(arg_list) == 1:
+            print("** instance id missing **")
+        elif "{}.{}".format(arg_list[0], arg_list[1]):
+            print("** no instance found **")
+        else:
+            del db["{}.{}".format(arg_list[0], arg_list[1])]
+            file_storage.save()
 
     @classmethod
     def default(self):
@@ -120,6 +137,8 @@ class HBNBCommand(cmd.Cmd):
             print("** instance id is missing **")
         elif "{}.{}".format(arg_list[0], arg_list[1]) not in db:
             print("** no instance **")
+        else:
+            print(db["{}.{}".format(arg_list[0], arg_list[1])])
 
     @classmethod
     def do_quit(self):
