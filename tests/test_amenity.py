@@ -12,7 +12,13 @@ class TestAmenityClass(unittest.TestCase):
     """
     unittests for Amenity
     1 - tests if emoty string used
+    2 - tests if BaseClass is parent of Amenity
     """
 
     def test_class(self):
+        obj = Amenity()
+
         self.assertEqual(Amenity.name, "")
+
+        self.assertIsInstance(obj, Amenity)
+        self.assertIsInstance(obj, BaseModel)
