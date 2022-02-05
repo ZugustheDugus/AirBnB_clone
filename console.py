@@ -6,7 +6,7 @@ This is the console that the user inputs commands into
 
 import cmd
 
-from models.engine import file_storage
+from models.engine.file_storage import file_storage
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -45,11 +45,22 @@ class HBNBCommand(cmd.Cmd):
         return narg_list
 
     @classmethod
-    def create(self):
-
-    @classmethod
-    def show(self, cls):
-        pass
+    def do_create(self, arg):
+        """
+        Creates a new instance of BaseModel
+        and saves to a JSON file, then prints
+        """
+        arg_list = HBNBCommand.parse(arg)
+        if len(arg_list) == 0:
+            print("** class name missing **")
+        elif len(arg_list) > 1:
+            print("** too many arguments **")
+        elif (arg_list[0] in HBNBCommand.__class_list.keys()):
+            new_obj = HBNBCommand.__class_list[arg_list[0]]()
+            new_obj.save()
+            print(new_obj.id)
+        else:
+            print("** class doesn't exist **")
 
     @classmethod
     def do_destroy(self, arg):
@@ -71,8 +82,41 @@ class HBNBCommand(cmd.Cmd):
             del db["{}.{}".format(arg_list[0], arg_list[1])]
             file_storage.save()
 
+    def show(self, cls):
+        """
+        Gives all elements inside File Storage
+        that are of instances of cls
+        """
+        pass
+
+    def destroy(self, cls):
+        """
+        Gives all elements inside File Storage
+        that are of instances of cls
+        """
+        pass
+
+    def update(self, cls):
+        """
+        Gives all elements inside File Storage
+        that are of instances of cls
+        """
+        pass
+
     @classmethod
-    def default(self):
+    def default(self, line):
+        """
+        Handles what to do if there is no do method passed
+        """
+        line_p = HBNBCommand.parse(line, '.')
+        if line_p[0] in HBNBCommand.__class_list.keys() and len(line_p) > 1:
+            if line_p[1][:-2] in HBNBCommand.__class_funcs:
+                func = line_p[1][:-2]
+                cls = HBNBCommand.__class_list[line_p[0]]
+                eval("self.do_" + func)(cls.__name__)
+            else:
+                super().default(line)
+            return False
 
     @classmethod
     def all(self):
@@ -115,7 +159,6 @@ class HBNBCommand(cmd.Cmd):
     def parse(arg, id=''):
         """Parser for the console"""
 
-<<<<<<< HEAD
     @classmethod
     def help_create(self):
         """Help message for the create command"""
@@ -140,8 +183,6 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance **")
         else:
             print(db["{}.{}".format(arg_list[0], arg_list[1])])
-=======
->>>>>>> 319ef67e9a8bda4e72471f3f6b504e529550ce88
 
     @classmethod
     def do_quit(self):
@@ -168,4 +209,5 @@ class HBNBCommand(cmd.Cmd):
             self.file = None
 
 if __name__ == '__main__':
-    HBNBCommand().cmdloop()
+    console = HBNBCommand()
+    console.cmdloop()
