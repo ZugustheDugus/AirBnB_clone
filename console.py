@@ -115,6 +115,7 @@ class HBNBCommand(cmd.Cmd):
     def parse(arg, id=''):
         """Parser for the console"""
 
+<<<<<<< HEAD
     @classmethod
     def help_create(self):
         """Help message for the create command"""
@@ -139,6 +140,8 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance **")
         else:
             print(db["{}.{}".format(arg_list[0], arg_list[1])])
+=======
+>>>>>>> 319ef67e9a8bda4e72471f3f6b504e529550ce88
 
     @classmethod
     def do_quit(self):
