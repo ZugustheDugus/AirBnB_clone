@@ -15,6 +15,7 @@ class TestReviewClass(unittest.TestCase):
     def test_class(self):
         """
         1 - tests for empty class in fields
+        2 - testing if BaseModel is parent of Review
         """
         obj = Review()
 
@@ -24,3 +25,6 @@ class TestReviewClass(unittest.TestCase):
         self.assertEqual(obj.place_id, "")
         self.assertEqual(obj.user_id, "")
         self.assertEqual(obj.text, "")
+
+        self.assertIsInstance(obj, Review)
+        self.assertIsInstance(obj, BaseModel)
