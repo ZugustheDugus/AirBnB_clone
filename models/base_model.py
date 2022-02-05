@@ -12,7 +12,6 @@ class BaseModel:
     Base Model class, which all other classes inherit from
     """
 
-    @classmethod
     def clear(cls):
         """Clear variables for testing purposes"""
         BaseModel.__nb_objects = 0
@@ -47,7 +46,7 @@ class BaseModel:
         models.storage.save()
 
     def to_dict(self):
-        """"""
+        """returns the dictionary representation of the object"""
         dict_repr = {}
         for key, value in self.__dict__.items():
             if key == "created_at" or key == "updated_at":
