@@ -20,3 +20,5 @@ classes = {
     "State": State,
     "User": User,
     }
+
+class_funcs = ["all", "count", "show", "destroy", "update"]
