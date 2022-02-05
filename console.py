@@ -15,7 +15,7 @@ from models.city import City
 from models.place import Place
 from models.amenity import Amenity
 from models.review import Review
-from models.engine.our_objects import classes, class_funcs
+from models.engine import our_objects
 class HBNBCommand(cmd.Cmd):
     """Console class basic init"""
     intro = "Welcome to AirBnB!"
@@ -148,7 +148,7 @@ class HBNBCommand(cmd.Cmd):
         if len(arg_list) == 0:
             print("** class name missing **")
             return False
-        elif len(arg_list[0]) not in HBNBCommand.__class_list:
+        elif len(arg_list[0]) not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return False
         elif len(arg_list) == 1:
