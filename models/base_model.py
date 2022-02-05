@@ -8,7 +8,9 @@ from datetime import datetime
 
 
 class BaseModel:
-
+    """
+    Base Model class, which all other classes inherit from
+    """
 
     @classmethod
     def clear(cls):
@@ -39,25 +41,11 @@ class BaseModel:
         return ("{}, {}, {}".format(self.__class__.__name__, self.id,
                                     self.__dict__))
 
-    def id(self):
-        """Generate an id for the class using UUID"""
-        id = uuid.uuid1()
-        return id
-
-    @classmethod
-    def created_at(self):
-        """Assign date time on creation"""
-    
-    @classmethod
-    def updated_at(self):
-        """Assign date time on update"""
-
     def save(self):
         """Updates updated_at public instance variable"""
         self.updated_at = datetime.today()
         models.storage.save()
-    
-    @classmethod
+
     def to_dict(self):
         """"""
         dict_repr = {}
