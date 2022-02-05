@@ -6,9 +6,8 @@ import sys, os, uuid, json, models
 from uuid import uuid4
 from datetime import datetime
 
-__nb_objects = 0
 
-class BaseModel():
+class BaseModel:
 
 
     @classmethod
@@ -64,7 +63,7 @@ class BaseModel():
         dict_repr = {}
         for key, value in self.__dict__.items():
             if key == "created_at" or key == "updated_at":
-                dict_recpt[key] = value.isoformat()
+                dict_repr[key] = value.isoformat()
             else:
                 dict_repr["__class__"] = self.__class__.__name__
 
