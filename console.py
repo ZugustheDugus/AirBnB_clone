@@ -166,6 +166,43 @@ class HBNBCommand(cmd.Cmd):
         arg_list = HBNBCommand.parse(arg)
         obj_dict = file_storage.all()
 
+        if len(arg_list) == 0:
+            print("** class name missing **")
+            return False
+        elif len(arg_list[0]) not in HBNBCommand.__class_list:
+            print("** class doesn't exist **")
+            return False
+        elif len(arg_list) == 1:
+            print("** instance id missing **")
+            return False
+        elif "{}.{}".format(arg_list[0], arg_list[1]) not in obj_dict.keys():
+            print("** no instance found **")
+        elif len(arg_list) == 2:
+            print("** attribute name missing **")
+            return False
+        elif len(arg_list) == 3:
+            try:
+                type(eval(arg_list[2])) != dict
+            except NameError:
+                print("** value missing **")
+                return False
+        elif len(arg_list) == 4:
+            obj = obj_dict["{}.{}".format(arg_list[0], arg_list[1])]
+            if arg_list[2] in obj.__class__.__dict__.keys():
+                valtype = type(obj.__class__.__dict__[arg_list[2]])
+                obj.__dict__[arg_list[2]] = valtype(arg_list[3])
+            else:
+                obj.__dict__[arg_list[2]] = arg_list[3]
+        elif type(eval(arg_list[2])) == dict:
+            obj = obj_dict["{}.{}".format(arg_list[0], arg_list[1])]
+            for i, j in eval(arg_list[2]).items():
+                if (i in obj.__class__.__dict__.keys() and type(
+                    obj.__class__.__dict__[i]) in {str, int, float}):
+                    valtype = type(obj.__class__.__dict__[i])
+                    obj.__dict__[i] = valtype(j)
+                else:
+                    obj.__dict__[i] = j
+        file_storage.save()
 
     def show(self, cls):
         """
