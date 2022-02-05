@@ -15,12 +15,23 @@ from models.city import City
 from models.place import Place
 from models.amenity import Amenity
 from models.review import Review
-from models.engine import our_objects
+from models.engine.our_objects import classes, class_funcs
 class HBNBCommand(cmd.Cmd):
     """Console class basic init"""
     intro = "Welcome to AirBnB!"
-    prompt = "(hbnb)"
+    prompt = "(hbnb) "
     file = None
+    classes = {
+        BaseModel.__name__: BaseModel,
+        User.__name__: User,
+        State.__name__: State,
+        City.__name__: City,
+        Place.__name__: Place,
+        Amenity.__name__: Amenity,
+        Review.__name__: Review
+    }
+    class_funcs = ["all", "count", "show", "destroy", "update"]
+
 
     @staticmethod
     def parse(arg, id=" "):
