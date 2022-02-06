@@ -16,7 +16,6 @@ from models.city import City
 from models.place import Place
 from models.amenity import Amenity
 from models.review import Review
-from models.engine.our_objects import classes, class_funcs
 class HBNBCommand(cmd.Cmd):
     """Console class basic init"""
     intro = "Welcome to AirBnB!"
@@ -58,20 +57,21 @@ class HBNBCommand(cmd.Cmd):
         print("")
         return True
 
-    def do_create(self, arg):
+    def do_create(self, arg, id=None):
         """
         Creates a new instance of BaseModel
         and saves to a JSON file, then prints
         """
         arg_list = HBNBCommand.parse(arg)
+        storage.reload()
         if len(arg_list) == 0:
             print("** class name missing **")
         elif len(arg_list) > 1:
             print("** too many arguments **")
         elif (arg_list[0] in HBNBCommand.classes.keys()):
             new_obj = HBNBCommand.classes[arg_list[0]]
-            new_obj.save()
-            print(new_obj.id)
+            storage.save()
+            print("{}".format(new_obj.id))
         else:
             print("** class doesn't exist **")
 
