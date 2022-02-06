@@ -5,7 +5,7 @@ State class, which stores state info
 from models.base_model import BaseModel
 
 
-class State():
+class State(BaseModel):
     """
     init the class
     name: string - empty string
