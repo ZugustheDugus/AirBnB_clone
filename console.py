@@ -6,7 +6,7 @@ This is the console that the user inputs commands into
 
 import cmd
 from json import loads, dumps
-import models
+from models import storage
 
 from models.engine import file_storage
 from models.base_model import BaseModel
@@ -86,7 +86,7 @@ class HBNBCommand(cmd.Cmd):
         based on class name and id
         """
         arg_list = HBNBCommand.parse(arg)
-        db = file_storage.all()
+        db = storage.all()
         if not len(arg_list):
             print("** class name missing **")
         elif (arg_list[0] not in HBNBCommand.classes.keys()):
@@ -108,8 +108,8 @@ class HBNBCommand(cmd.Cmd):
         Deletes an instance based on class name and ID
         """
         arg_list = HBNBCommand.parse(arg)
-        file_storage.reload()
-        db = file_storage.all()
+        storage.reload()
+        db = storage.all()
         if not len(arg_list):
             print("** class name missing **")
         elif (arg_list[0] not in HBNBCommand.classes.keys()):
@@ -120,7 +120,7 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
         else:
             del db["{}.{}".format(arg_list[0], arg_list[1])]
-            file_storage.save()
+            storage.save()
     
     def help_destroy(self):
         """Prints the help message for the do_destroy command"""
@@ -136,7 +136,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         else:
             obj1 = []
-            for obj in file_storage.all().values():
+            for obj in storage.all().values():
                 if len(arg_list) > 0 and arg_list[0] == obj.__class__.__name__:
                     obj1.append(obj.__str__())
                 elif len(arg_list) == 0:
@@ -155,7 +155,7 @@ class HBNBCommand(cmd.Cmd):
         into a JSON file
         """
         arg_list = HBNBCommand.parse(arg)
-        obj_dict = file_storage.all()
+        obj_dict = storage.all()
 
         if len(arg_list) == 0:
             print("** class name missing **")
@@ -193,7 +193,7 @@ class HBNBCommand(cmd.Cmd):
                     obj.__dict__[i] = valtype(j)
                 else:
                     obj.__dict__[i] = j
-        file_storage.save()
+        storage.save()
 
     def help_update(self):
         """
@@ -220,7 +220,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         else:
             obj1 = []
-            for obj in file_storage.all().values():
+            for obj in storage.all().values():
                 if len(arg_list) > 0 and arg_list[0] == obj.__class__.__name__:
                     obj1.append(obj.__str__())
                 elif len(arg_list) == 0:
