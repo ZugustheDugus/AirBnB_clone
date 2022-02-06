@@ -22,5 +22,5 @@ class TestStateClass(unittest.TestCase):
         self.assertEqual(State.name, "")
         self.assertEqual(obj.name, "")
 
-        #self.assertIsInstance(obj, State)
-        #self.assertIsInstance(obj, BaseModel)
+        self.assertIsInstance(obj, State)
+        self.assertIsInstance(obj, BaseModel)

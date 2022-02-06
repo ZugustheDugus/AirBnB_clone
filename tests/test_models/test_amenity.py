@@ -4,6 +4,7 @@ unittests for Amenity
 """
 
 import unittest
+import models
 from models.base_model import BaseModel
 from models.amenity import Amenity
 
@@ -20,5 +21,5 @@ class TestAmenityClass(unittest.TestCase):
 
         self.assertEqual(Amenity.name, "")
 
-        #self.assertIsInstance(obj, Amenity)
-        #self.assertIsInstance(obj, BaseModel)
+        self.assertIsInstance(obj, Amenity)
+        self.assertIsInstance(obj, BaseModel)
