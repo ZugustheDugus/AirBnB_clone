@@ -6,6 +6,7 @@ This is the console that the user inputs commands into
 
 import cmd
 from json import loads, dumps
+from uuid import uuid1
 from models import storage
 
 from models.engine import file_storage
@@ -70,6 +71,7 @@ class HBNBCommand(cmd.Cmd):
             print("** too many arguments **")
         elif (arg_list[0] in HBNBCommand.classes.keys()):
             new_obj = HBNBCommand.classes[arg_list[0]]
+            new_obj.id = uuid1
             storage.save()
             print("{}".format(new_obj.id))
         else:
