@@ -31,7 +31,7 @@ class HBNBCommand(cmd.Cmd):
         Amenity.__name__: Amenity,
         Review.__name__: Review
     }
-    class_funcs = ["all", "count", "show", "destroy", "update"]
+    class_funcs = ["all", "count", "create", "show", "destroy", "update"]
 
 
     @staticmethod
@@ -68,8 +68,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         elif len(arg_list) > 1:
             print("** too many arguments **")
-        elif (arg_list[0] in HBNBCommand.classes().keys()):
-            new_obj = HBNBCommand.classes()[arg_list[0]]()
+        elif (arg_list[0] in HBNBCommand.classes.keys()):
+            new_obj = HBNBCommand.classes[arg_list[0]]
             new_obj.save()
             print(new_obj.id)
         else:
