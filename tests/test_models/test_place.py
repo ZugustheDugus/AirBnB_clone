@@ -44,3 +44,18 @@ class TestPlaceClass(unittest.TestCase):
 
         self.assertIsInstance(obj, Place)
         self.assertIsInstance(obj, BaseModel)
+
+        self.assertIn("id", obj.__dict__)
+        self.assertIn("created_at", obj.__dict__)
+        self.assertIn("updated_at", obj.__dict__)
+        self.assertIn("city_id", Place.__dict__)
+        self.assertIn("user_id", Place.__dict__)
+        self.assertIn("name", Place.__dict__)
+        self.assertIn("description", Place.__dict__)
+        self.assertIn("number_rooms", Place.__dict__)
+        self.assertIn("number_bathrooms", Place.__dict__)
+        self.assertIn("max_guest", Place.__dict__)
+        self.assertIn("price_by_night", Place.__dict__)
+        self.assertIn("latitude", Place.__dict__)
+        self.assertIn("longitude", Place.__dict__)
+        self.assertIn("amenity_ids", Place.__dict__)

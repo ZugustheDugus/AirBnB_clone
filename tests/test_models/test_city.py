@@ -25,3 +25,8 @@ class TestCityClass(unittest.TestCase):
         self.assertIsInstance(obj, City)
         self.assertIsInstance(obj, BaseModel)
 
+        self.assertIn("id", obj.__dict__)
+        self.assertIn("created_at", obj.__dict__)
+        self.assertIn("updated_at", obj.__dict__)
+        self.assertIn("name", City.__dict__)
+        self.assertIn("state_id", City.__dict__)

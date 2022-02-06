@@ -24,3 +24,8 @@ class TestStateClass(unittest.TestCase):
 
         self.assertIsInstance(obj, State)
         self.assertIsInstance(obj, BaseModel)
+
+        self.assertIn("id", obj.__dict__)
+        self.assertIn("created_at", obj.__dict__)
+        self.assertIn("updated_at", obj.__dict__)
+        self.assertIn("name", State.__dict__)

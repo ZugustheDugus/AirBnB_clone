@@ -23,3 +23,8 @@ class TestAmenityClass(unittest.TestCase):
 
         self.assertIsInstance(obj, Amenity)
         self.assertIsInstance(obj, BaseModel)
+
+        self.assertIn("id", obj.__dict__)
+        self.assertIn("created_at", obj.__dict__)
+        self.assertIn("updated_at", obj.__dict__)
+        self.assertIn("name", Amenity.__dict__)

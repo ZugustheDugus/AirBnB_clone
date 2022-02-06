@@ -28,3 +28,11 @@ class TestUserClass(unittest.TestCase):
 
         self.assertIsInstance(obj, User)
         self.assertIsInstance(obj, BaseModel)
+
+        self.assertIn("id", obj.__dict__)
+        self.assertIn("created_at", obj.__dict__)
+        self.assertIn("updated_at", obj.__dict__)
+        self.assertIn("email", User.__dict__)
+        self.assertIn("password", User.__dict__)
+        self.assertIn("first_name", User.__dict__)
+        self.assertIn("last_name", User.__dict__)

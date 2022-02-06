@@ -28,3 +28,10 @@ class TestReviewClass(unittest.TestCase):
 
         self.assertIsInstance(obj, Review)
         self.assertIsInstance(obj, BaseModel)
+
+        self.assertIn("id", obj.__dict__)
+        self.assertIn("created_at", obj.__dict__)
+        self.assertIn("updated_at", obj.__dict__)
+        self.assertIn("place_id", Review.__dict__)
+        self.assertIn("user_id", Review.__dict__)
+        self.assertIn("text", Review.__dict__)

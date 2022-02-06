@@ -16,6 +16,11 @@ class TestBaseModel(unittest.TestCase):
     def test_base(self):
         obj = BaseModel()
 
+        self.assertIsInstance(obj, BaseModel)
         self.assertIsInstance(obj.id, str)
         self.assertIsInstance(obj.created_at, datetime)
         self.assertIsInstance(obj.updated_at, datetime)
+
+        self.assertIn("id", obj.__dict__)
+        self.assertIn("created_at", obj.__dict__)
+        self.assertIn("updated_at", obj.__dict__)
