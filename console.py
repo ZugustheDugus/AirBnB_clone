@@ -25,7 +25,7 @@ class HBNBCommand(cmd.Cmd):
     """Console class basic init"""
     intro = "Welcome to AirBnB!"
     prompt = "(hbnb) "
-    #file = None
+    file = None
     classes = {
         BaseModel.__name__: BaseModel,
         User.__name__: User,
