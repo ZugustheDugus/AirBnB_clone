@@ -4,17 +4,12 @@ File storage section of the program
 Sentence
 """
 
-import json
-from models.base_model import BaseModel
-from models.user import User
-from models.state import State
-from models.city import City
-from models.place import Place
-from models.amenity import Amenity
-from models.review import Review
+from json import loads, dumps
+from os.path import exists
 
 
-class FileStorage:
+
+class FileStorage():
     """
     serializes and/or deserializes JSON file
     Private attrs:
@@ -24,31 +19,31 @@ class FileStorage:
     __file_path = "file.json"
     __objects = {}
 
-    def __init__(self):
-        pass
-
     def all(self):
         """
         dict of save objects
         """
-        return FileStorage.__objects
+        return self.__objects
 
     def new(self, obj):
         """
         stores obj in dict above
         """
-        FileStorage.__objects["{}.{}".format(obj.__class__.__name__, obj.id)] = obj
+        key = "{}.{}".format(type(obj).__name__, obj.id)
+        self.__objects[key] = obj
+        self.save()
+
 
     def save(self):
         """
         serializes __objects to the JSON file (path: __file_path)
         """
-        obj_dict = {
-            key: value.to_dict()
-            for key, value in FileStorage.__objects.items()
-        }
-        with open(FileStorage.__file_path, "w") as json_file:
-            json.dump(obj_dict, json_file)
+        dict_of_dicts = {}
+        for key, value in self.__objects.items():
+            dict_of_dicts[key] = value.to_dict()
+        with open(self.__file_path, 'w') as f:
+            f.write(dumps(dict_of_dicts))
+
 
     def reload(self):
         """
@@ -57,13 +52,16 @@ class FileStorage:
         otherwise, do nothing. No exception should be raised)
         """
 
-        try:
-            with open(FileStorage.__file_path, "r") as json_file:
-                obj_dict = json.load(json_file)
-                for obj_str in obj_dict.values():
-                    cls = eval(obj_str["__class__"])
-                    new_obj = cls(**obj_str)
-                    self.new(new_obj)
+        if exists(self.__file_path) is False:
+            return
 
-        except FileNotFoundError:
-            pass
+        with open(self.__file_path, 'r') as f:
+            dicts = loads(f.read())
+
+        from .our_objects import classes
+
+        self.__objects = {}
+        for id, dict in dicts.items():
+            cls_name = id.split('.')[0]
+            cls = classes[cls_name]
+            self.__objects[id] = cls(**dict)
