@@ -1,8 +1,5 @@
-from . import base_model
-from .engine.file_storage import FileStorage
-from . import user
+from models.engine import file_storage
 
-all = [base_model.BaseModel, user.User]
-
-storage = FileStorage()
+storage = file_storage.FileStorage()
 storage.reload()
+

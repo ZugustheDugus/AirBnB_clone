@@ -17,6 +17,10 @@ from models.city import City
 from models.place import Place
 from models.amenity import Amenity
 from models.review import Review
+
+from models.__init__ import storage
+
+
 class HBNBCommand(cmd.Cmd):
     """Console class basic init"""
     intro = "Welcome to AirBnB!"
@@ -72,7 +76,7 @@ class HBNBCommand(cmd.Cmd):
         elif (arg_list[0] in HBNBCommand.classes.keys()):
             new_obj = HBNBCommand.classes[arg_list[0]]
             new_obj.id = uuid4
-            new_obj.save(self)
+            storage.save()
             print("{}".format(new_obj.id))
         else:
             print("** class doesn't exist **")
