@@ -32,8 +32,8 @@ class BaseModel:
                     self.__dict__[key] = str(value)
                 else:
                     self.__dict__[key] = value
-            else:
-                models.storage.new(self)
+        else:
+            models.storage.new(self)
 
     def __str__(self):
         """Return string representation of the class"""
