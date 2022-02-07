@@ -6,7 +6,8 @@ This is the console that the user inputs commands into
 
 import cmd
 from json import loads, dumps
-from uuid import uuid1, uuid3, uuid4
+from uuid import UUID, uuid1, uuid3, uuid4
+import uuid
 from models import storage
 
 from models.engine import file_storage
@@ -25,7 +26,7 @@ class HBNBCommand(cmd.Cmd):
     """Console class basic init"""
     intro = "Welcome to AirBnB!"
     prompt = "(hbnb) "
-    file = None
+
     classes = {
         BaseModel.__name__: BaseModel,
         User.__name__: User,
@@ -62,12 +63,13 @@ class HBNBCommand(cmd.Cmd):
         print("")
         return True
 
-    def do_create(self, arg, id=None):
+    def do_create(self, arg):
         """
         Creates a new instance of BaseModel
         and saves to a JSON file, then prints
         """
         arg_list = HBNBCommand.parse(arg)
+        new_obj = ''
         #storage.reload()
         if len(arg_list) == 0:
             print("** class name missing **")
@@ -75,9 +77,8 @@ class HBNBCommand(cmd.Cmd):
             print("** too many arguments **")
         elif (arg_list[0] in HBNBCommand.classes.keys()):
             new_obj = HBNBCommand.classes[arg_list[0]]
-            new_obj.id = uuid4
-            storage.save()
-            print("{}".format(new_obj.id))
+            new_obj.save(self)
+            print("{}".format(new_obj))
         else:
             print("** class doesn't exist **")
 
@@ -172,33 +173,27 @@ class HBNBCommand(cmd.Cmd):
         if len(arg_list) == 1:
             print("** instance id missing **")
             return False
+        string = arg[0] + "." + arg[1]
+        if string not in obj_dict.keys():
+            print("** no instance found **")
+            return False
         if "{}.{}".format(arg_list[0], arg_list[1]) not in obj_dict.keys():
             print("** no instance found **")
         if len(arg_list) == 2:
             print("** attribute name missing **")
             return False
         if len(arg_list) == 3:
-            try:
-                type(eval(arg_list[2])) != dict
-            except NameError:
-                print("** value missing **")
-                return False
-        if len(arg_list) == 4:
-            obj = obj_dict["{}.{}".format(arg_list[0], arg_list[1])]
-            if arg_list[2] in obj.__class__.__dict__.keys():
-                valtype = type(obj.__class__.__dict__[arg_list[2]])
-                obj.__dict__[arg_list[2]] = valtype(arg_list[3])
-            else:
-                obj.__dict__[arg_list[2]] = arg_list[3]
-        elif type(eval(arg_list[2])) == dict:
-            obj = obj_dict["{}.{}".format(arg_list[0], arg_list[1])]
-            for i, j in eval(arg_list[2]).items():
-                if (i in obj.__class__.__dict__.keys() and type(
-                    obj.__class__.__dict__[i]) in {str, int, float}):
-                    valtype = type(obj.__class__.__dict__[i])
-                    obj.__dict__[i] = valtype(j)
-                else:
-                    obj.__dict__[i] = j
+            print("** value missing **")
+            return False
+        try:
+            a = float(arg[3])
+            if a.is_integer():
+                a = int(a)
+        except (TypeError, ValueError):
+            setattr(obj_dict[string], arg[2], str(arg[3]))
+            storage.save()
+            return False
+        setattr(obj_dict[string], arg[2], a)
         storage.save()
 
     def help_update(self):
