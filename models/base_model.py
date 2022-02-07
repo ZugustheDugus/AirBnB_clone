@@ -52,7 +52,7 @@ class BaseModel:
             if key == "created_at" or key == "updated_at":
                 dict_repr[key] = value.isoformat()
             else:
-                dict_repr["__class__"] = self.__class__.__name__
+                dict_repr[key] = self.__class__.__name__
 
         dict_repr["__class__"] = self.__class__.__name__
 
