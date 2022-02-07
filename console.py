@@ -25,7 +25,7 @@ class HBNBCommand(cmd.Cmd):
     """Console class basic init"""
     intro = "Welcome to AirBnB!"
     prompt = "(hbnb) "
-    file = None
+    #file = None
     classes = {
         BaseModel.__name__: BaseModel,
         User.__name__: User,
@@ -68,7 +68,7 @@ class HBNBCommand(cmd.Cmd):
         and saves to a JSON file, then prints
         """
         arg_list = HBNBCommand.parse(arg)
-        storage.reload()
+        #storage.reload()
         if len(arg_list) == 0:
             print("** class name missing **")
         elif len(arg_list) > 1:
@@ -138,7 +138,7 @@ class HBNBCommand(cmd.Cmd):
         whether based on class or not
         """
         arg_list = HBNBCommand.parse(arg)
-        if len(arg_list) > 0 and arg_list[0] not in HBNBCommand.classes():
+        if len(arg_list) > 0 and arg_list[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
         else:
             obj1 = []
