@@ -96,7 +96,7 @@ class HBNBCommand(cmd.Cmd):
         elif len(arg_list) == 1:
             print("** instance id is missing **")
         elif "{}.{}".format(arg_list[0], arg_list[1]) not in db:
-            print("** no instance **")
+            print("** no instance found**")
         else:
             print(db["{}.{}".format(arg_list[0], arg_list[1])])
     

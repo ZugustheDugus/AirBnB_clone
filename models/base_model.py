@@ -37,7 +37,7 @@ class BaseModel:
 
     def __str__(self):
         """Return string representation of the class"""
-        return ("{}, {}, {}".format(self.__class__.__name__, self.id,
+        return ("[{}] ({}) {}".format(self.__class__.__name__, self.id,
                                     self.__dict__))
 
     def save(self):
@@ -52,7 +52,7 @@ class BaseModel:
             if key == "created_at" or key == "updated_at":
                 dict_repr[key] = value.isoformat()
             else:
-                dict_repr["__class__"] = self.__class__.__name__
+                dict_repr[key] = value
 
         dict_repr["__class__"] = self.__class__.__name__
 
