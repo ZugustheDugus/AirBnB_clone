@@ -7,7 +7,6 @@ This is the console that the user inputs commands into
 import cmd
 from json import loads, dumps
 from models import storage
-import sys
 
 from models.engine import file_storage, our_objects
 from models.base_model import BaseModel
