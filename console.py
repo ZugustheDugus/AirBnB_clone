@@ -50,12 +50,10 @@ class HBNBCommand(cmd.Cmd):
         """Quits the program"""
         return True
 
-    # def help_quit(self):
-    #     """Prints help message about quit command"""
-    #     print("""Quit command to exit the program\n""")
-
-    do_EOF = do_quit
-    """EOF is same as do_quit and runs identically"""
+    def do_EOF(self, arg):
+        """EOF is same as do_quit and runs identically"""
+        print()
+        raise SystemExit
 
     def do_create(self, arg):
         """
@@ -156,31 +154,36 @@ class HBNBCommand(cmd.Cmd):
         by adding or updating an attribute and saving the change
         into a JSON file
         """
-        arg_list = HBNBCommand.parse(arg)
+        #arg_list = HBNBCommand.parse(arg)
         obj_dict = storage.all()
         arg = arg.split(" ")
-        key = arg[0] + "." + arg[1]
-
-        if len(arg_list) == 0:
+        print(arg)
+        if arg[0] == "":
             print("** class name missing **")
-        if (arg_list[0] not in HBNBCommand.classes.keys()):
+            return
+        elif (arg[0] not in HBNBCommand.classes.keys()):
             print("** class doesn't exist **")
-        if len(arg_list) == 1:
+            return
+        elif len(arg) == 1:
             print("** instance id missing **")
+            return
+        elif len(arg) == 2:
+            print("** attribute name missing **")
+            return
+        elif len(arg) == 3:
+            print("** value missing **")
+            return
+        key = arg[0] + "." + arg[1]
         if key not in obj_dict.keys():
             print("** no instance found **")
-        if len(arg_list) == 2:
-            print("** attribute name missing **")
-        if len(arg_list) == 3:
-            print("** value missing **")
+            return
         try:
             a = float(arg[3])
             if a.is_integer():
                 a = int(a)
+            setattr(obj_dict[key], arg[2], a)
         except (TypeError, ValueError):
-            setattr(obj_dict[key], arg[2], str(arg[3]))
-            storage.save()
-        setattr(obj_dict[key], arg[2], a)
+            setattr(obj_dict[key], arg[2], (arg[3].strip("'")))
         storage.save()
 
     def help_update(self):
@@ -191,7 +194,7 @@ class HBNBCommand(cmd.Cmd):
         by adding or updating an attribute and saving the change
         into a JSON file\n""")
 
-    def empty_line(self):
+    def emptyline(self):
         """
         Does nothing. It's an empty line
         Overrides emptyline function\n
