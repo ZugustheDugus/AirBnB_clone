@@ -2,9 +2,12 @@
 """
 This is the base class from which other classes are derived
 """
-import sys, os, uuid, json, models
+import sys
+import os
 from uuid import uuid4
 from datetime import datetime
+import models
+import json
 
 
 class BaseModel:
@@ -33,8 +36,8 @@ class BaseModel:
 
     def __str__(self):
         """Return string representation of the class"""
-        return ("[{}] ({}) {}".format(self.__class__.__name__, self.id,
-                                    self.__dict__))
+        return ("[{}] ({}) {}".format(self.__class__.__name__,
+                                        self.id, self.__dict__))
 
     def save(self):
         """Updates updated_at public instance variable"""

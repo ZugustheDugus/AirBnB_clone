@@ -37,7 +37,6 @@ class HBNBCommand(cmd.Cmd):
     }
     class_funcs = ["all", "count", "create", "show", "destroy", "update"]
 
-
     @staticmethod
     def parse(arg, id=" "):
         """Convert args into tuples for interpretation"""
