@@ -69,8 +69,6 @@ class HBNBCommand(cmd.Cmd):
         arg_list = HBNBCommand.parse(arg)
         if len(arg_list) == 0:
             print("** class name missing **")
-        elif len(arg_list) > 1:
-            print("** too many arguments **")
         elif (arg_list[0] in HBNBCommand.classes.keys()):
             new_obj = HBNBCommand.classes[arg_list[0]]()
             new_obj.save()
