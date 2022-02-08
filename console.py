@@ -10,7 +10,7 @@ from uuid import UUID, uuid1, uuid3, uuid4
 import uuid
 from models import storage
 
-from models.engine import file_storage
+from models.engine import file_storage, our_objects
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -18,7 +18,6 @@ from models.city import City
 from models.place import Place
 from models.amenity import Amenity
 from models.review import Review
-
 from models.__init__ import storage
 
 
@@ -37,7 +36,6 @@ class HBNBCommand(cmd.Cmd):
         Review.__name__: Review
     }
     class_funcs = ["all", "count", "create", "show", "destroy", "update"]
-
 
     @staticmethod
     def parse(arg, id=" "):
@@ -69,14 +67,26 @@ class HBNBCommand(cmd.Cmd):
         and saves to a JSON file, then prints
         """
         arg_list = HBNBCommand.parse(arg)
+<<<<<<< HEAD
+=======
+        new_obj = ''
+        storage.reload()
+
+>>>>>>> 0375e45939070a7a65114e2fb9ab69fe19c28c90
         if len(arg_list) == 0:
             print("** class name missing **")
         elif len(arg_list) > 1:
             print("** too many arguments **")
         elif (arg_list[0] in HBNBCommand.classes.keys()):
+<<<<<<< HEAD
             new_obj = HBNBCommand.classes[arg_list[0]]()
             print(new_obj, type(new_obj))
             new_obj.save()
+=======
+            new_obj = HBNBCommand.classes[arg_list[0]]
+            new_obj.save()
+            new_obj.id = uuid4()
+>>>>>>> 0375e45939070a7a65114e2fb9ab69fe19c28c90
             print("{}".format(new_obj.id))
         else:
             print("** class doesn't exist **")
@@ -102,11 +112,16 @@ class HBNBCommand(cmd.Cmd):
         elif len(arg_list) == 1:
             print("** instance id is missing **")
         else:
+<<<<<<< HEAD
             try:
                 print(db[key])
             except:
                 print("** no instance found **")
     
+=======
+            print(db["{}.{}".format(arg_list[0], arg_list[1])])
+
+>>>>>>> 0375e45939070a7a65114e2fb9ab69fe19c28c90
     def help_show(self):
         """Prints the help message for do_show command"""
         print("""Prints the string representation of an instance
@@ -127,19 +142,25 @@ class HBNBCommand(cmd.Cmd):
         elif len(arg_list) == 1:
             print("** instance id missing **")
         else:
+<<<<<<< HEAD
             try:
                 del(db[key])
                 storage.save()
             except:
                 print("** no instance found **")
     
+=======
+            del db["{}.{}".format(arg_list[0], arg_list[1])]
+            storage.save()
+
+>>>>>>> 0375e45939070a7a65114e2fb9ab69fe19c28c90
     def help_destroy(self):
         """Prints the help message for the do_destroy command"""
         print("""Deletes an instance based on class name and id""")
 
     def do_all(self, arg):
         """
-        Prints string representation of all instances 
+        Prints string representation of all instances
         whether based on class or not
         """
         arg_list = HBNBCommand.parse(arg)
