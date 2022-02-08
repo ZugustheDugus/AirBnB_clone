@@ -6,8 +6,6 @@ This is the console that the user inputs commands into
 
 import cmd
 from json import loads, dumps
-from uuid import UUID, uuid1, uuid3, uuid4
-import uuid
 from models import storage
 
 from models.engine import file_storage, our_objects
@@ -52,9 +50,9 @@ class HBNBCommand(cmd.Cmd):
         """Quits the program"""
         return True
 
-    def help_quit(self, arg):
+    def help_quit(self):
         """Prints help message about quit command"""
-        print("Quit command to exit the program\n")
+        print("""Quit command to exit the program\n""")
 
     do_EOF = do_quit
     """EOF is same as do_quit and runs identically"""
@@ -77,7 +75,7 @@ class HBNBCommand(cmd.Cmd):
     def help_create(self):
         """Help message for the create command"""
         print("""Creates a new instance of the first argument
-                stores it in JSON file and prints its ID""")
+                stores it in JSON file and prints its ID\n""")
 
     def do_show(self, arg):
         """
@@ -103,7 +101,7 @@ class HBNBCommand(cmd.Cmd):
     def help_show(self):
         """Prints the help message for do_show command"""
         print("""Prints the string representation of an instance
-                based on class name and id""")
+                based on class name and id\n""")
 
     def do_destroy(self, arg):
         """
@@ -128,7 +126,7 @@ class HBNBCommand(cmd.Cmd):
     
     def help_destroy(self):
         """Prints the help message for the do_destroy command"""
-        print("""Deletes an instance based on class name and id""")
+        print("""Deletes an instance based on class name and id\n""")
 
     def do_all(self, arg):
         """
@@ -150,7 +148,7 @@ class HBNBCommand(cmd.Cmd):
     def help_all(self):
         """Prints the help message for the do_all command"""
         print("""Prints string representation of all instances
-                whether based on class or not""")
+                whether based on class or not\n""")
 
     def do_update(self, arg):
         """
@@ -191,12 +189,12 @@ class HBNBCommand(cmd.Cmd):
         """
         print("""Updates an instance based on class name and id
         by adding or updating an attribute and saving the change
-        into a JSON file""")
+        into a JSON file\n""")
 
     def empty_line(self):
         """
         Does nothing. It's an empty line
-        Overrides emptyline function
+        Overrides emptyline function\n
         """
         pass
 
