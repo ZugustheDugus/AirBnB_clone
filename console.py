@@ -7,6 +7,7 @@ This is the console that the user inputs commands into
 import cmd
 from json import loads, dumps
 from models import storage
+import sys
 
 from models.engine import file_storage, our_objects
 from models.base_model import BaseModel
@@ -47,11 +48,11 @@ class HBNBCommand(cmd.Cmd):
         return narg_list
 
     def do_quit(self, arg):
-        """Quits the program"""
+        """Quits the program\n"""
         return True
 
     def do_EOF(self, arg):
-        """EOF is same as do_quit and runs identically"""
+        """EOF is same as do_quit and runs identically\n"""
         print()
         raise SystemExit
 
