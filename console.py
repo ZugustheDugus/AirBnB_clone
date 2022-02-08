@@ -69,16 +69,14 @@ class HBNBCommand(cmd.Cmd):
         and saves to a JSON file, then prints
         """
         arg_list = HBNBCommand.parse(arg)
-        new_obj = ''
-        #storage.reload()
         if len(arg_list) == 0:
             print("** class name missing **")
         elif len(arg_list) > 1:
             print("** too many arguments **")
         elif (arg_list[0] in HBNBCommand.classes.keys()):
             new_obj = HBNBCommand.classes[arg_list[0]]
-            new_obj.save(self)
-            print("{}".format(new_obj))
+            new_obj.save()
+            print("{}".format(new_obj.id))
         else:
             print("** class doesn't exist **")
 
@@ -227,27 +225,6 @@ class HBNBCommand(cmd.Cmd):
                 elif len(arg_list) == 0:
                     obj1.append(obj.__str__())
 
-    def show(self, cls):
-        """
-        Gives all elements inside File Storage
-        that are of instances of cls
-        """
-        pass
-
-    def destroy(self, cls):
-        """
-        Gives all elements inside File Storage
-        that are of instances of cls
-        """
-        pass
-
-    def update(self, cls):
-        """
-        Gives all elements inside File Storage
-        that are of instances of cls
-        """
-        pass
-
     def default(self, line):
         """
         Handles what to do if there is no valid do method passed
@@ -261,16 +238,6 @@ class HBNBCommand(cmd.Cmd):
             else:
                 super().default(line)
             return False
-
-    def save(self, arg):
-        """Save function"""
-        self.file = open(arg, 'w')
-
-    def close(self):
-        """Close the Console"""
-        if self.file:
-            self.file.close()
-            self.file = None
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
