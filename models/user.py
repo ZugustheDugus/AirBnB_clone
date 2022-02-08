@@ -4,6 +4,7 @@ User class stores user info
 """
 from models.base_model import BaseModel
 
+
 class User(BaseModel):
     """
     init the class

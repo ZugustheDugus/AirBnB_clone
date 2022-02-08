@@ -8,7 +8,6 @@ from json import loads, dumps
 from os.path import exists
 
 
-
 class FileStorage():
     """
     serializes and/or deserializes JSON file
@@ -33,7 +32,6 @@ class FileStorage():
         self.__objects[key] = obj
         self.save()
 
-
     def save(self):
         """
         serializes __objects to the JSON file (path: __file_path)
@@ -43,7 +41,6 @@ class FileStorage():
             dict_of_dicts[key] = value.to_dict()
         with open(self.__file_path, 'w') as f:
             f.write(dumps(dict_of_dicts))
-
 
     def reload(self):
 
