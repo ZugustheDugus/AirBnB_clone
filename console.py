@@ -67,26 +67,13 @@ class HBNBCommand(cmd.Cmd):
         and saves to a JSON file, then prints
         """
         arg_list = HBNBCommand.parse(arg)
-<<<<<<< HEAD
-=======
-        new_obj = ''
-        storage.reload()
-
->>>>>>> 0375e45939070a7a65114e2fb9ab69fe19c28c90
         if len(arg_list) == 0:
             print("** class name missing **")
         elif len(arg_list) > 1:
             print("** too many arguments **")
         elif (arg_list[0] in HBNBCommand.classes.keys()):
-<<<<<<< HEAD
             new_obj = HBNBCommand.classes[arg_list[0]]()
-            print(new_obj, type(new_obj))
             new_obj.save()
-=======
-            new_obj = HBNBCommand.classes[arg_list[0]]
-            new_obj.save()
-            new_obj.id = uuid4()
->>>>>>> 0375e45939070a7a65114e2fb9ab69fe19c28c90
             print("{}".format(new_obj.id))
         else:
             print("** class doesn't exist **")
@@ -112,16 +99,11 @@ class HBNBCommand(cmd.Cmd):
         elif len(arg_list) == 1:
             print("** instance id is missing **")
         else:
-<<<<<<< HEAD
             try:
                 print(db[key])
             except:
                 print("** no instance found **")
     
-=======
-            print(db["{}.{}".format(arg_list[0], arg_list[1])])
-
->>>>>>> 0375e45939070a7a65114e2fb9ab69fe19c28c90
     def help_show(self):
         """Prints the help message for do_show command"""
         print("""Prints the string representation of an instance
@@ -142,18 +124,12 @@ class HBNBCommand(cmd.Cmd):
         elif len(arg_list) == 1:
             print("** instance id missing **")
         else:
-<<<<<<< HEAD
             try:
                 del(db[key])
                 storage.save()
             except:
                 print("** no instance found **")
     
-=======
-            del db["{}.{}".format(arg_list[0], arg_list[1])]
-            storage.save()
-
->>>>>>> 0375e45939070a7a65114e2fb9ab69fe19c28c90
     def help_destroy(self):
         """Prints the help message for the do_destroy command"""
         print("""Deletes an instance based on class name and id""")
@@ -188,37 +164,29 @@ class HBNBCommand(cmd.Cmd):
         """
         arg_list = HBNBCommand.parse(arg)
         obj_dict = storage.all()
+        arg = arg.split(" ")
+        key = arg[0] + "." + arg[1]
 
         if len(arg_list) == 0:
             print("** class name missing **")
-            return False
         if (arg_list[0] not in HBNBCommand.classes.keys()):
             print("** class doesn't exist **")
-            return False
         if len(arg_list) == 1:
             print("** instance id missing **")
-            return False
-        string = arg[0] + "." + arg[1]
-        if string not in obj_dict.keys():
-            print("** no instance found **")
-            return False
-        if "{}.{}".format(arg_list[0], arg_list[1]) not in obj_dict.keys():
+        if key not in obj_dict.keys():
             print("** no instance found **")
         if len(arg_list) == 2:
             print("** attribute name missing **")
-            return False
         if len(arg_list) == 3:
             print("** value missing **")
-            return False
         try:
             a = float(arg[3])
             if a.is_integer():
                 a = int(a)
         except (TypeError, ValueError):
-            setattr(obj_dict[string], arg[2], str(arg[3]))
+            setattr(obj_dict[key], arg[2], str(arg[3]))
             storage.save()
-            return False
-        setattr(obj_dict[string], arg[2], a)
+        setattr(obj_dict[key], arg[2], a)
         storage.save()
 
     def help_update(self):
