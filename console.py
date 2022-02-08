@@ -216,19 +216,5 @@ class HBNBCommand(cmd.Cmd):
                 elif len(arg_list) == 0:
                     obj1.append(obj.__str__())
 
-    def default(self, line):
-        """
-        Handles what to do if there is no valid do method passed
-        """
-        line_p = HBNBCommand.parse(line, '.')
-        if line_p[0] in HBNBCommand.classes.keys() and len(line_p) > 1:
-            if line_p[1][:-2] in HBNBCommand.class_funcs():
-                func = line_p[1][:-2]
-                cls = HBNBCommand.classes[line_p[0]]
-                eval("self.do_" + func)(cls.__name__)
-            else:
-                super().default(line)
-            return False
-
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
