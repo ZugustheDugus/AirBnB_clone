@@ -50,9 +50,9 @@ class HBNBCommand(cmd.Cmd):
         """Quits the program"""
         return True
 
-    def help_quit(self):
-        """Prints help message about quit command"""
-        print("""Quit command to exit the program\n""")
+    # def help_quit(self):
+    #     """Prints help message about quit command"""
+    #     print("""Quit command to exit the program\n""")
 
     do_EOF = do_quit
     """EOF is same as do_quit and runs identically"""
