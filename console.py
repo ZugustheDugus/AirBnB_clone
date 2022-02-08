@@ -69,22 +69,14 @@ class HBNBCommand(cmd.Cmd):
         and saves to a JSON file, then prints
         """
         arg_list = HBNBCommand.parse(arg)
-<<<<<<< HEAD
-=======
-        new_obj = ''
-        storage.reload()
->>>>>>> fa9dfa41bdf31e283d4ddd3ef8b3e08924eb9d32
         if len(arg_list) == 0:
             print("** class name missing **")
         elif len(arg_list) > 1:
             print("** too many arguments **")
         elif (arg_list[0] in HBNBCommand.classes.keys()):
-            new_obj = HBNBCommand.classes[arg_list[0]]
-<<<<<<< HEAD
+            new_obj = HBNBCommand.classes[arg_list[0]]()
+            print(new_obj, type(new_obj))
             new_obj.save()
-=======
-            new_obj.id = uuid4()
->>>>>>> fa9dfa41bdf31e283d4ddd3ef8b3e08924eb9d32
             print("{}".format(new_obj.id))
         else:
             print("** class doesn't exist **")
@@ -101,16 +93,19 @@ class HBNBCommand(cmd.Cmd):
         """
         arg_list = HBNBCommand.parse(arg)
         db = storage.all()
+        arg = arg.split(" ")
+        key = ".".join(arg)
         if not len(arg_list):
             print("** class name missing **")
         elif (arg_list[0] not in HBNBCommand.classes.keys()):
             print("** class doesn't exist **")
         elif len(arg_list) == 1:
             print("** instance id is missing **")
-        elif "{}.{}".format(arg_list[0], arg_list[1]) not in db:
-            print("** no instance found**")
         else:
-            print(db["{}.{}".format(arg_list[0], arg_list[1])])
+            try:
+                print(db[key])
+            except:
+                print("** no instance found **")
     
     def help_show(self):
         """Prints the help message for do_show command"""
@@ -122,7 +117,8 @@ class HBNBCommand(cmd.Cmd):
         Deletes an instance based on class name and ID
         """
         arg_list = HBNBCommand.parse(arg)
-        storage.reload()
+        arg = arg.split(" ")
+        key = ".".join(arg)
         db = storage.all()
         if not len(arg_list):
             print("** class name missing **")
@@ -130,11 +126,12 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         elif len(arg_list) == 1:
             print("** instance id missing **")
-        elif "{}.{}".format(arg_list[0], arg_list[1]):
-            print("** no instance found **")
         else:
-            del db["{}.{}".format(arg_list[0], arg_list[1])]
-            storage.save()
+            try:
+                del(db[key])
+                storage.save()
+            except:
+                print("** no instance found **")
     
     def help_destroy(self):
         """Prints the help message for the do_destroy command"""
