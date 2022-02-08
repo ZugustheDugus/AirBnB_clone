@@ -56,10 +56,7 @@ class HBNBCommand(cmd.Cmd):
         """Prints help message about quit command"""
         print("Quit command to exit the program\n")
 
-    def do_EOF(self, arg):
-        """End of file"""
-        print("")
-        return True
+    do_EOF = do_quit
 
     def do_create(self, arg):
         """
