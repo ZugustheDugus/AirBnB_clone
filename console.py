@@ -69,13 +69,22 @@ class HBNBCommand(cmd.Cmd):
         and saves to a JSON file, then prints
         """
         arg_list = HBNBCommand.parse(arg)
+<<<<<<< HEAD
+=======
+        new_obj = ''
+        storage.reload()
+>>>>>>> fa9dfa41bdf31e283d4ddd3ef8b3e08924eb9d32
         if len(arg_list) == 0:
             print("** class name missing **")
         elif len(arg_list) > 1:
             print("** too many arguments **")
         elif (arg_list[0] in HBNBCommand.classes.keys()):
             new_obj = HBNBCommand.classes[arg_list[0]]
+<<<<<<< HEAD
             new_obj.save()
+=======
+            new_obj.id = uuid4()
+>>>>>>> fa9dfa41bdf31e283d4ddd3ef8b3e08924eb9d32
             print("{}".format(new_obj.id))
         else:
             print("** class doesn't exist **")
