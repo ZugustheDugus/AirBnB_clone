@@ -23,7 +23,7 @@ from models.__init__ import storage
 
 class HBNBCommand(cmd.Cmd):
     """Console class basic init"""
-    intro = "Welcome to AirBnB!"
+    #intro = "Welcome to AirBnB!"
     prompt = "(hbnb) "
 
     classes = {
