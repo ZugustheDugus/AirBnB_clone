@@ -95,7 +95,7 @@ class HBNBCommand(cmd.Cmd):
                 print(db[key])
             except:
                 print("** no instance found **")
-    
+
     def help_show(self):
         """Prints the help message for do_show command"""
         print("""Prints the string representation of an instance
@@ -121,7 +121,7 @@ class HBNBCommand(cmd.Cmd):
                 storage.save()
             except:
                 print("** no instance found **")
-    
+
     def help_destroy(self):
         """Prints the help message for the do_destroy command"""
         print("""Deletes an instance based on class name and id\n""")
