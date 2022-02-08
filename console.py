@@ -10,7 +10,7 @@ from uuid import UUID, uuid1, uuid3, uuid4
 import uuid
 from models import storage
 
-from models.engine import file_storage
+from models.engine import file_storage, our_objects
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -18,7 +18,6 @@ from models.city import City
 from models.place import Place
 from models.amenity import Amenity
 from models.review import Review
-
 from models.__init__ import storage
 
 
@@ -69,22 +68,17 @@ class HBNBCommand(cmd.Cmd):
         and saves to a JSON file, then prints
         """
         arg_list = HBNBCommand.parse(arg)
-<<<<<<< HEAD
-=======
         new_obj = ''
         storage.reload()
->>>>>>> fa9dfa41bdf31e283d4ddd3ef8b3e08924eb9d32
+
         if len(arg_list) == 0:
             print("** class name missing **")
         elif len(arg_list) > 1:
             print("** too many arguments **")
         elif (arg_list[0] in HBNBCommand.classes.keys()):
             new_obj = HBNBCommand.classes[arg_list[0]]
-<<<<<<< HEAD
             new_obj.save()
-=======
             new_obj.id = uuid4()
->>>>>>> fa9dfa41bdf31e283d4ddd3ef8b3e08924eb9d32
             print("{}".format(new_obj.id))
         else:
             print("** class doesn't exist **")
@@ -111,7 +105,7 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found**")
         else:
             print(db["{}.{}".format(arg_list[0], arg_list[1])])
-    
+
     def help_show(self):
         """Prints the help message for do_show command"""
         print("""Prints the string representation of an instance
@@ -135,14 +129,14 @@ class HBNBCommand(cmd.Cmd):
         else:
             del db["{}.{}".format(arg_list[0], arg_list[1])]
             storage.save()
-    
+
     def help_destroy(self):
         """Prints the help message for the do_destroy command"""
         print("""Deletes an instance based on class name and id""")
 
     def do_all(self, arg):
         """
-        Prints string representation of all instances 
+        Prints string representation of all instances
         whether based on class or not
         """
         arg_list = HBNBCommand.parse(arg)

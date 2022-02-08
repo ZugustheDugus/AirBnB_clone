@@ -12,10 +12,6 @@ class BaseModel:
     Base Model class, which all other classes inherit from
     """
 
-    def clear(cls):
-        """Clear variables for testing purposes"""
-        BaseModel.__nb_objects = 0
-
     def __init__(self, *args, **kwargs):
         """init the class"""
         TIME_FORMAT = "%Y-%m-%dT%H:%M:%S.%f"
