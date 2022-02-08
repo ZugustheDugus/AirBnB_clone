@@ -57,6 +57,7 @@ class HBNBCommand(cmd.Cmd):
         print("Quit command to exit the program\n")
 
     do_EOF = do_quit
+    """EOF is same as do_quit and runs identically"""
 
     def do_create(self, arg):
         """
@@ -215,9 +216,14 @@ class HBNBCommand(cmd.Cmd):
                 elif len(arg_list) == 0:
                     obj1.append(obj.__str__())
 
-    def default(self, line):
+if __name__ == '__main__':
+    HBNBCommand().cmdloop()
+
+"""    def default(self, line):
+        """
         """
         Handles what to do if there is no valid do method passed
+        """
         """
         line_p = HBNBCommand.parse(line, '.')
         if line_p[0] in HBNBCommand.classes.keys() and len(line_p) > 1:
@@ -227,7 +233,4 @@ class HBNBCommand(cmd.Cmd):
                 eval("self.do_" + func)(cls.__name__)
             else:
                 super().default(line)
-            return False
-
-if __name__ == '__main__':
-    HBNBCommand().cmdloop()
+            return False"""
